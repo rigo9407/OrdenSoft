@@ -1,0 +1,22 @@
+{% extends '_layout.html' %}
+{% block contenido %}
+<br>
+<br>
+<div class="card">
+    <div class="carda-body">
+        <h2 class="p-4">Crear Usuario</h2>
+        <div class="p-4 formu">
+            <form action="" method="post">
+            {%csrf_token%}
+            {{form}}
+        <br>
+        <br>
+        <div class="">
+        <button type="submit" class="btn btn-danger float">Crear Usuario</button>
+        <button type="reset" class="btn btn-secondary float">Cancelar</button>
+        </div>
+    </form></div>
+    </div>
+</div>   
+
+{% endblock %}

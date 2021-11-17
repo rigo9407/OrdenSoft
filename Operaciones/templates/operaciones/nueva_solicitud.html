@@ -1,0 +1,61 @@
+{% extends '_layout.html' %}
+{% block contenido %}
+<br>
+<br>
+<div class="card">
+    <div class="carda-body">
+        <h2 class="p-4">Nuevo Cliente</h2>
+        <div class="p-4 formu">
+            <form action="" method="post">
+                {% load widget_tweaks %}
+                {%csrf_token%}
+              <!--  <label class="control-label">Tipo de Solicitud</label>
+                {{form.tipo_solicitud| attr:"class:form-control"}}
+                <label class="control-label">Contrato de Compraventa</label>
+                {{form.contrato| attr:"class:form-control"}}
+                <label class="control-label">Fecha de Solicitud</label>
+                {{form.fecha_Solicitud| attr:"class:form-control"|attr:"type:date"}}
+                <label class="control-label">Fecha de la Inspeccion</label>
+                {{form.fecha_Inspeccion| attr:"class:form-control"|attr:"type:date"}}
+                <label class="control-label">Cliente</label>
+                {{form.id_cliente| attr:"class:form-control"}}
+                <label class="control-label">Vendedor</label>
+                {{form.id_vendedor| attr:"class:form-control"}}
+                <label class="control-label">Comprador</label>
+                {{form.id_comprador| attr:"class:form-control"}}
+                <label class="control-label">Receptor</label>
+                {{form.id_receptor| attr:"class:form-control"}}-->
+                <label class="control-label">Medio de Carga
+                    <button class="btn btn-danger btn-sm" onclick="Medio()"><i class="bi bi-plus-lg"></i></button></label>
+                {{form.medio| attr:"class:form-control"|attr:"id:medio"}}
+               <!-- <label class="control-label">Servicio</label>
+                {{form.servicio| attr:"class:form-control"}}-->
+
+                <br>
+                <br>
+
+                <button type="submit" class="btn btn-danger float">Crear Cliente</button>
+                <button type="reset" class="btn btn-secondary float">Cancelar</button>
+        </form></div>
+</div>
+</div>
+
+<script>
+    function Medio()
+    {
+        var medio=document.getElementById('medio')
+        if(medio=="Buques")
+        {
+            var x = document.createElement("{{formbuque}}");
+            document.body.appendChild(x);
+        }
+        else
+        {
+            var x = document.createElement("{{formcontenedor}}");
+            document.body.appendChild(x);
+        }
+
+    }
+</script>
+
+{% endblock %}
