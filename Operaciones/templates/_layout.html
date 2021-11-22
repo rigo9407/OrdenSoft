@@ -18,9 +18,9 @@
   <link href="{% static 'assets/img/apple-touch-icon.png' %}" rel="apple-touch-icon">
 
   <!-- Google Fonts -->
-  <link href="https://fonts.gstatic.com" rel="preconnect">
+  <!--<link href="https://fonts.gstatic.com" rel="preconnect">
   <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Nunito:300,300i,400,400i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
-
+-->
   <!-- Vendor CSS Files -->
   <link href="{% static 'assets/vendor/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
   <link href="{% static 'assets/vendor/bootstrap-icons/bootstrap-icons.css' %}" rel="stylesheet">
@@ -39,14 +39,14 @@
   <header id="header" class="header fixed-top d-flex align-items-center">
 
     <div class="d-flex align-items-center justify-content-between">
-      <a href="index.html" class="logo d-flex align-items-center">
+      <a href="{% url 'inicio'%}" class="logo d-flex align-items-center">
         <img src="assets/img/logo.png" alt="">
         <span class="d-none d-lg-block">ORDENSOFT</span>
       </a>
       <i class="bi bi-list toggle-sidebar-btn"></i>
     </div><!-- End Logo -->
 
-    <div class="search-bar">
+    <div style="display:none" class="search-bar">
       <form class="search-form d-flex align-items-center" method="POST" action="#">
         <input type="text" name="query" placeholder="Search" title="Enter search keyword">
         <button type="submit" title="Search"><i class="bi bi-search"></i></button>
@@ -197,13 +197,8 @@
             </a>
           </li>
           <li>
-            <a href="components-badges.html">
-              <i class="bi bi-circle"></i><span>Conetenedores</span>
-            </a>
-          </li>
-          <li>
-            <a href="components-badges.html">
-              <i class="bi bi-circle"></i><span>Buques</span>
+            <a href="{% url 'listar_servicios' %}">
+              <i class="bi bi-circle"></i><span>Servicios</span>
             </a>
           </li>
         </ul>
@@ -247,7 +242,7 @@
             </a>
           </li>
           <li>
-            <a href="forms-layouts.html">
+            <a href="{% url 'nueva_orden' %}">
               <i class="bi bi-circle"></i><span>Nueva Orden</span>
             </a>
           </li>
@@ -372,7 +367,7 @@
   <!-- Template Main JS File -->
   <script src="{% static 'main.js' %}"></script>
     
-        <!--<script src="{% static 'js/sweet.js' %}"></script>
+        <script src="{% static 'js/sweet.js' %}"></script>
         <script src="{% static 'js/jquery.js' %}"></script>
         <script src="{% static 'bootstrap5/js/bootstrap.bundle.min.js' %}"></script>
         
@@ -386,7 +381,7 @@
                 wheelPropagation: true,
                 minScrollbarLength: 20
             });
-        </script>-->
+        </script>
         {%if messages%}
         {%for m in messages%}
         <script>

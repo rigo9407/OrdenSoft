@@ -1,0 +1,33 @@
+{% extends '_layout.html' %}
+{% block contenido %}
+<br>
+<br>
+<div class="card">
+    <div class="carda-body">
+        <h2 class="p-4">Listado de Servicios</h2>
+        <div class="p-4">
+            <a href="{%url 'nuevo_servicio'%}" class="btn btn-danger">Nuevo</a>
+            <table class="table table-striped">
+                <thead>
+                <tr>
+                <th scope="col">No.</th>
+                <th scope="col">Nombre</th>
+                <th scope="col">Tipo de Servicio</th>
+
+            </tr>
+            </thead>
+            <tbody>
+                {%for c in servicios%}
+                <tr>
+                <td>{{c.id}}</td>
+                <td>{{c.nombre}}</td>
+                <td>{{c.tipo_servicio}}</td>
+            </tr>
+                {%endfor%}
+            </tbody>
+            </table>
+        </div>
+    </div>
+</div>   
+
+{% endblock %}

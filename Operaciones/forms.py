@@ -5,7 +5,8 @@ from django.db import models
 from django.db.models import fields
 from django.forms import widgets
 from django.forms.widgets import DateInput, Select, TextInput
-from .models import Cliente, Empresa, Solicitud, Contenedor, Buque
+from .models import Cliente, Empresa, Solicitud, Contenedor, Buque, Servicios, \
+    Orden,Comprador,Vendedor, Receptor, Persona,Sello, Incidencia
 
 class CuastomUserCreationForm(UserCreationForm):
     class Meta:
@@ -35,4 +36,38 @@ class ContenedorForm(forms.ModelForm):
 class BuqueForm(forms.ModelForm):
     class Meta:
         model=Buque
+        fields='__all__'
+
+class ServicioForm(forms.ModelForm):
+    class Meta:
+        model=Servicios
+        fields='__all__'
+
+class OrdenForm(forms.ModelForm):
+    class Meta:
+        model=Orden
+        fields='__all__'
+class CompradorForm(forms.ModelForm):
+    class Meta:
+        model=Comprador
+        fields='__all__'
+class VendedorForm(forms.ModelForm):
+    class Meta:
+        model=Vendedor
+        fields='__all__'
+class ReceptorForm(forms.ModelForm):
+    class Meta:
+        model=Receptor
+        fields='__all__'
+class PersonaForm(forms.ModelForm):
+    class Meta:
+        model=Persona
+        fields='__all__'
+class SelloForm(forms.ModelForm):
+    class Meta:
+        model=Sello
+        fields='__all__'
+class IncidenciaForm(forms.ModelForm):
+    class Meta:
+        model=Incidencia
         fields='__all__'

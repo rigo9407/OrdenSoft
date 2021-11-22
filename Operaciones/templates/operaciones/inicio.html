@@ -34,7 +34,7 @@
                         <i class="bi bi-clipboard-data"></i>
                       </div>
                       <div class="ps-3">
-                        <h6>145</h6>
+                        <h6>{{Ordenes}}</h6>
                        
                       </div>
                     </div>
@@ -109,10 +109,10 @@
                         new ApexCharts(document.querySelector("#reportsChart"), {
                           series: [{
                             name: 'Barcos',
-                            data: [31, 40, 28, 51, 42, 82, 56, 13, 63, 52, 65, 55],
+                            data: [{{contbuques1}},{{contbuques2}},{{contbuques3}},{{contbuques4}}],
                           }, {
                             name: 'Contenedores',
-                            data: [11, 32, 45, 32, 34, 52, 41, 13, 19, 53, 61, 36],
+                            data: [0,0,0,0],
                           }],
                           chart: {
                             height: 350,
@@ -142,7 +142,7 @@
                             width: 2
                           },
                           xaxis: {
-                            categories: ["enero", "febrero", "marzo", "abril", "mayo", "junio", "julio", "agosto", "septiembre", "octubre", "noviembre", "diciembre"]
+                            categories: ["1er trimestre", "2do trimestre", "3er trimestre", "4to trimestre"]
                           }
                         }).render();
                       });

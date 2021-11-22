@@ -14,8 +14,8 @@ tipo_solicitud=(
     ('Destino','Destino')
 )
 tipo_servicios=(
-    ('Buques','Buques'),
-    ('Contenedores','Contenedores')
+    ('buque','Buques'),
+    ('contenedor','Contenedores')
 )
 tipo_incidencia=(
     ('Sobrante','Sobrante'),

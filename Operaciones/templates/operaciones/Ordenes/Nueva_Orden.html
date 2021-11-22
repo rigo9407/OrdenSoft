@@ -1,0 +1,31 @@
+{% extends '_layout.html' %}
+{% block contenido %}
+<br>
+<br>
+<div class="card">
+    <div class="carda-body">
+        <h2 class="p-4">Nuevo Cliente</h2>
+        <div class="p-4 formu">
+            <form action="" method="post">
+                {% load widget_tweaks %}
+                {%csrf_token%}
+                <label class="control-label">Numero de Orden</label>
+                {{form.no_orden| attr:"class:form-control"}}
+                <label class="control-label">Solicitud</label>
+                {{form.solicitud| attr:"class:form-control"}}
+                <label class="control-label">Fotos</label>
+                {{form.fotos| attr:"class:form-control"|attr:"type:file"|attr:"multiple"}}
+                <label class="control-label">Incidencia</label>
+                {{form.incidencia| attr:"class:form-control"}}
+
+                <br>
+                <br>
+
+                <button type="submit" class="btn btn-danger float">Crear Cliente</button>
+                <button type="reset" class="btn btn-secondary float">Cancelar</button>
+        </div>
+        </form></div>
+</div>
+</div>
+
+{% endblock %}
