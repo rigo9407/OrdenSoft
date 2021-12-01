@@ -5,7 +5,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <title></title>
+    <title>{%block title%}{%endblock%}</title>
 
     <!-- Bootstrap core CSS 
     <link rel="stylesheet" href="{% static 'bootstrap5/css/bootstrap.css' %}">
@@ -13,14 +13,14 @@
     {%block css%}{%endblock%}
 
     <!-- Your custom styles (optional) -->
-    <!-- Favicons -->
+    <!-- Favicons-->
   <link href="{% static 'assets/img/favicon.png' %}" rel="icon">
   <link href="{% static 'assets/img/apple-touch-icon.png' %}" rel="apple-touch-icon">
 
   <!-- Google Fonts -->
-  <!--<link href="https://fonts.gstatic.com" rel="preconnect">
+  <link href="https://fonts.gstatic.com" rel="preconnect">
   <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Nunito:300,300i,400,400i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
--->
+
   <!-- Vendor CSS Files -->
   <link href="{% static 'assets/vendor/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
   <link href="{% static 'assets/vendor/bootstrap-icons/bootstrap-icons.css' %}" rel="stylesheet">
@@ -69,73 +69,46 @@
 
           <a class="nav-link nav-icon" href="#" data-bs-toggle="dropdown">
             <i class="bi bi-bell"></i>
-            <span class="badge bg-primary badge-number">4</span>
+            <span class="badge bg-primary badge-number">{{vencidos}}</span>
           </a><!-- End Notification Icon -->
 
           <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow notifications">
             <li class="dropdown-header">
-              You have 4 new notifications
-              <a href="#"><span class="badge rounded-pill bg-primary p-2 ms-2">View all</span></a>
-            </li>
+              {% ifequal vencidos 1 %}
+              Tienes 1 notificación
+              {% else %}
+              Tienes {{vencidos}} notificaciones
+              {%endifequal%}
+              </li>
             <li>
               <hr class="dropdown-divider">
             </li>
-
-            <li class="notification-item">
-              <i class="bi bi-exclamation-circle text-warning"></i>
-              <div>
-                <h4>Lorem Ipsum</h4>
-                <p>Quae dolorem earum veritatis oditseno</p>
-                <p>30 min. ago</p>
-              </div>
-            </li>
-
-            <li>
-              <hr class="dropdown-divider">
-            </li>
-
+            {%for c in clientes_vencidos%}
             <li class="notification-item">
               <i class="bi bi-x-circle text-danger"></i>
               <div>
-                <h4>Atque rerum nesciunt</h4>
-                <p>Quae dolorem earum veritatis oditseno</p>
-                <p>1 hr. ago</p>
+                <p>Clente Vencido</p>
+                <h4>{{c.empresa.nombre}}</h4>
               </div>
             </li>
 
             <li>
               <hr class="dropdown-divider">
             </li>
-
+            {%endfor%}
+            {%for c in proximos%}
             <li class="notification-item">
-              <i class="bi bi-check-circle text-success"></i>
+              <i class="bi bi-exclamation-triangle text-warning"></i>
               <div>
-                <h4>Sit rerum fuga</h4>
-                <p>Quae dolorem earum veritatis oditseno</p>
-                <p>2 hrs. ago</p>
+                <p>Cliente Proximo a vencerse</p>
+                <h4>{{c.empresa.nombre}}</h4>
               </div>
             </li>
 
             <li>
               <hr class="dropdown-divider">
             </li>
-
-            <li class="notification-item">
-              <i class="bi bi-info-circle text-primary"></i>
-              <div>
-                <h4>Dicta reprehenderit</h4>
-                <p>Quae dolorem earum veritatis oditseno</p>
-                <p>4 hrs. ago</p>
-              </div>
-            </li>
-
-            <li>
-              <hr class="dropdown-divider">
-            </li>
-            <li class="dropdown-footer">
-              <a href="#">Show all notifications</a>
-            </li>
-
+            {%endfor%}
           </ul><!-- End Notification Dropdown Items -->
 
         </li><!-- End Notification Nav --></div>
@@ -180,19 +153,19 @@
         </a>
       </li><!-- End Dashboard Nav -->
 
-
+ {%if user.is_staff%}
 <li class="nav-item">
         <a class="nav-link collapsed" data-bs-target="#icons-nav" data-bs-toggle="collapse" href="#">
           <i class="bi bi-columns-gap"></i><span>Nomencladores</span><i class="bi bi-chevron-down ms-auto"></i>
         </a>
         <ul id="icons-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
           <li>
-            <a href="{% url 'nuevo_cliente' %}">
+            <a href="{% url 'listar_empresas' %}">
               <i class="bi bi-circle"></i><span>Empresas</span>
             </a>
           </li>
           <li>
-            <a href="{% url 'listar_cliente' %}">
+            <a href="{% url 'listar_personas' %}">
               <i class="bi bi-circle"></i><span>Personas</span>
             </a>
           </li>
@@ -203,7 +176,7 @@
           </li>
         </ul>
       </li><!-- End Components Nav -->
-
+{%endif%}
 
 
       <li class="nav-item">
@@ -211,11 +184,6 @@
           <i class="bi bi-people-fill"></i><span>Clientes</span><i class="bi bi-chevron-down ms-auto"></i>
         </a>
         <ul id="components-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
-          <li>
-            <a href="{% url 'nuevo_cliente' %}">
-              <i class="bi bi-circle"></i><span>Nuevo Cliente</span>
-            </a>
-          </li>
           <li>
             <a href="{% url 'listar_cliente' %}">
               <i class="bi bi-circle"></i><span>Listar Clientes</span>
@@ -233,27 +201,22 @@
 
       <li class="nav-item">
         <a class="nav-link collapsed" data-bs-target="#forms-nav" data-bs-toggle="collapse" href="#">
-          <i class="bi bi-clipboard-data"></i><span>Operaciones</span><i class="bi bi-chevron-down ms-auto"></i>
+          <i class="bi bi-clipboard-data"></i><span>Solicitudes</span><i class="bi bi-chevron-down ms-auto"></i>
         </a>
         <ul id="forms-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
           <li>
-            <a href="{% url 'nueva_solicitud'%}">
-              <i class="bi bi-circle"></i><span>Nueva Solicitud</span>
+            <a href="{% url 'listar_solicitud'%}">
+              <i class="bi bi-circle"></i><span>Listar Solicitudes</span>
             </a>
           </li>
           <li>
-            <a href="{% url 'nueva_orden' %}">
-              <i class="bi bi-circle"></i><span>Nueva Orden</span>
+            <a href="{% url 'listar_buques' %}">
+              <i class="bi bi-circle"></i><span>Buque</span>
             </a>
           </li>
           <li>
-            <a href="forms-editors.html">
-              <i class="bi bi-circle"></i><span>Ordenes Abiertas</span>
-            </a>
-          </li>
-          <li>
-            <a href="forms-validation.html">
-              <i class="bi bi-circle"></i><span>Todas las Ordenes</span>
+            <a href="{% url 'listar_contenedor' %}">
+              <i class="bi bi-circle"></i><span>Contenedor</span>
             </a>
           </li>
         </ul>
@@ -261,27 +224,17 @@
 
       <li class="nav-item">
         <a class="nav-link collapsed" data-bs-target="#tables-nav" data-bs-toggle="collapse" href="#">
-          <i class="bi bi-file-earmark-text-fill"></i><span>Reportes</span><i class="bi bi-chevron-down ms-auto"></i>
+          <i class="bi bi-file-earmark-text-fill"></i><span>Ordenes</span><i class="bi bi-chevron-down ms-auto"></i>
         </a>
         <ul id="tables-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
           <li>
-            <a href="tables-general.html">
-              <i class="bi bi-circle"></i><span>Ordenes</span>
-            </a>
-          </li>
-          <li>
-            <a href="tables-data.html">
-              <i class="bi bi-circle"></i><span>Contenedores</span>
-            </a>
-          </li>
-          <li>
-            <a href="tables-data.html">
-              <i class="bi bi-circle"></i><span>Barcos</span>
+            <a href="{% url 'listar_ordenes' %}">
+              <i class="bi bi-circle"></i><span>Listar Ordenes</span>
             </a>
           </li>
         </ul>
       </li><!-- End Tables Nav -->
-
+{%if user.is_staff%}
       <li class="nav-item">
         <a class="nav-link collapsed" data-bs-target="#charts-nav" data-bs-toggle="collapse" href="#">
           <i class="bi bi-person-fill"></i><span>Usuarios</span><i class="bi bi-chevron-down ms-auto"></i>
@@ -304,14 +257,14 @@
           </li>
         </ul>
       </li><!-- End Charts Nav -->
-
+{%endif%}
 
       <li class="nav-heading">Extras</li>
 
       <li class="nav-item">
-        <a class="nav-link collapsed" href="users-profile.html">
+        <a class="nav-link collapsed" href="{%url 'parte'%}">
           <i class="bi bi-calculator-fill"></i>
-          <span>Calculos</span>
+          <span>Parte</span>
         </a>
       </li><!-- End Profile Page Nav -->
 
@@ -338,7 +291,14 @@
 
 
   <main id="main" class="main">
-
+<div class="pagetitle">
+        <nav>
+          <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="{%url 'inicio'%}">Inicio</a></li>
+            <li class="breadcrumb-item active">{%block pagina%}{%endblock%}</li>
+          </ol>
+        </nav>
+      </div><!-- End Page Title -->
     {%block contenido%}
     {%endblock%}
 
@@ -369,8 +329,9 @@
     
         <script src="{% static 'js/sweet.js' %}"></script>
         <script src="{% static 'js/jquery.js' %}"></script>
-        <script src="{% static 'bootstrap5/js/bootstrap.bundle.min.js' %}"></script>
-        
+       <!-- <script src="{% static 'bootstrap5/js/bootstrap.bundle.min.js' %}"></script>-->
+        {%block js%}
+        {%endblock%}
         <script>
             // SideNav Initialization
             $(".button-collapse").sideNav();
@@ -391,8 +352,6 @@
                 "icon": "success"
             })
         </script>
-        
-        
         {%endfor%}
         {%endif%}
 </body>

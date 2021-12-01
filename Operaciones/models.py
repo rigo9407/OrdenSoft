@@ -9,8 +9,8 @@ from .listas import tipo_empresas, dimenciones, tipo_solicitud, tipo_servicios, 
 # Create your models here.
 
 class Empresa(models.Model):
-    nombre=models.TextField(max_length=25)
-    direccion=models.TextField(max_length=50)
+    nombre=models.TextField(max_length=50)
+    direccion=models.TextField(max_length=100)
     codigo_one=models.IntegerField(ForeignKey)
     def __str__(self):
         return self.nombre
@@ -18,11 +18,11 @@ class Empresa(models.Model):
         verbose_name='Empresa'
         verbose_name_plural='Empresas'
 class Persona(models.Model):
-    ci=models.IntegerField(ForeignKey)
+    ci=models.BigIntegerField(ForeignKey)
     nombre=models.TextField(max_length=10)
     apellidos=models.TextField(max_length=20)
     cargo=models.TextField(max_length=25)
-    telefono=models.IntegerField()
+    telefono=models.BigIntegerField()
     correo=models.EmailField(max_length=25)
     empresa=models.OneToOneField(Empresa, on_delete=CASCADE)
     def __str__(self):
@@ -31,7 +31,7 @@ class Persona(models.Model):
         verbose_name='Persona'
         verbose_name_plural='Personas'
 class Cliente(models.Model):
-    numero_contrato=models.TextField(max_length=6)
+    numero_contrato=models.TextField(max_length=7)
     fechafirma=models.DateField()
     periodo=models.IntegerField()
     monto=models.DecimalField(max_digits=9, decimal_places=2)
@@ -83,7 +83,7 @@ class Sello(models.Model):
 class Contenedor(models.Model):
     numero=models.TextField(max_length=10)
     dimenciones=models.TextField(choices=dimenciones)
-    cantidad=models.IntegerField()
+    cantidad=models.BigIntegerField()
     peso=models.DecimalField(max_digits=9, decimal_places=2)
     embalaje=models.TextField(max_length=50)
     estiba=models.TextField(max_length=50, null=True)
@@ -109,7 +109,6 @@ class Buque(models.Model):
 
 
 class Solicitud(models.Model):
-    aprobada=models.BooleanField(default=False)
     tipo_solicitud=models.TextField(choices=tipo_solicitud, null=True)
     medio=models.TextField(choices=tipo_servicios, default='Buques')
     contrato=models.TextField(verbose_name='Contrato', max_length=15)
@@ -124,7 +123,7 @@ class Solicitud(models.Model):
     id_buque=models.OneToOneField(Buque, on_delete=CASCADE, verbose_name='Buque', null=True, blank=True )
     servicio=models.ManyToManyField(Servicios, verbose_name='Servicios',null= True)
     def __str__(self):
-        return self.id_cliente.id_empresa.nombre
+        return self.id_cliente.empresa.nombre
     class Meta:
         verbose_name='Solicitud'
         verbose_name_plural='Solicitudes'
@@ -136,7 +135,14 @@ class Incidencia(models.Model):
 class Orden(models.Model):
     solicitud=models.OneToOneField(Solicitud, on_delete=CASCADE)
     no_orden=models.TextField(ForeignKey)
-    fotos=models.ImageField(upload_to=no_orden)
-    incidencia=models.ManyToManyField(Incidencia, null=True, blank=True)
+    def __str__(self):
+        return self.no_orden
+    class Meta:
+        verbose_name='Orden'
+        verbose_name_plural='Ordenes'
+class Imagenes(models.Model):
+    orden=models.ForeignKey(Orden, related_name='images', on_delete=CASCADE)
+    image = models.ImageField(upload_to='operaciones')
 
-
+    def __unicode__(self, ):
+        return str(self.image)

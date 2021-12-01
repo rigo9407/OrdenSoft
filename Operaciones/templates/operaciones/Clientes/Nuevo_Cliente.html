@@ -1,18 +1,17 @@
-{% extends '_layout.html' %}
-{% block contenido %}
-<br>
-<br>
-<div class="card">
-    <div class="carda-body">
-        <h2 class="p-4">Nuevo Cliente</h2>
-        <div class="p-4 formu">
-        <form action="" method="post">
-            {% load widget_tweaks %}
-            {%csrf_token%}
+<div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h2 class="modale-title">Nuevo Cliente</h2>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <form action="{%url 'nuevo_cliente'%}" method="post">
+        <div class="modal-body">
+        {% load widget_tweaks %}
+        {%csrf_token%}
             <label class="control-label">Numero de Contrato</label>
-            {{form.numero_contrato| attr:"class:form-control"}}
+            {{form.numero_contrato| attr:"class:form-control"| attr:"rows:1"}}
             <label class="control-label">Fecha de Firma</label>
-            {{form.fecha_firma| attr:"class:form-control"|attr:"type:date"}}
+            {{form.fechafirma| attr:"class:form-control"|attr:"type:date"}}
             <label class="control-label">Periodo</label>
             {{form.periodo| attr:"class:form-control"|attr:"type:number"}}
             <label class="control-label">Monto</label>
@@ -20,16 +19,12 @@
             <label class="control-label">Tipo de Empresa</label>
             {{form.tipo_empresa| attr:"class:form-control"}}
             <label class="control-label">Empresa</label>
-            {{form.id_empresa| attr:"class:form-control"}}
-
-        <br>
-        <br>
-        
-        <button type="submit" class="btn btn-danger float">Crear Cliente</button>
-        <button type="reset" class="btn btn-secondary float">Cancelar</button>
+            {{form.empresa| attr:"class:form-control"}}
+ </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancelar</button>
+            <button type="submit" class="btn btn-success">Confirmar</button>
         </div>
-    </form></div>
+            </form>
     </div>
-</div>   
-
-{% endblock %}
+</div>

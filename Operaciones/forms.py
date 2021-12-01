@@ -6,7 +6,7 @@ from django.db.models import fields
 from django.forms import widgets
 from django.forms.widgets import DateInput, Select, TextInput
 from .models import Cliente, Empresa, Solicitud, Contenedor, Buque, Servicios, \
-    Orden,Comprador,Vendedor, Receptor, Persona,Sello, Incidencia
+    Orden,Comprador,Vendedor, Receptor, Persona,Sello, Incidencia, Imagenes
 
 class CuastomUserCreationForm(UserCreationForm):
     class Meta:
@@ -63,11 +63,11 @@ class PersonaForm(forms.ModelForm):
     class Meta:
         model=Persona
         fields='__all__'
-class SelloForm(forms.ModelForm):
+class ImagenesForm(forms.ModelForm):
     class Meta:
-        model=Sello
+        model=Imagenes
         fields='__all__'
-class IncidenciaForm(forms.ModelForm):
+class PersonaForm(forms.ModelForm):
     class Meta:
-        model=Incidencia
+        model=Persona
         fields='__all__'
